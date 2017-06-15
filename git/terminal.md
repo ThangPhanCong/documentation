@@ -259,3 +259,28 @@ Quay lại sau khi "nhỡ tay": `git reset --hard <id of commit>` (mất code)
 	`git branch -m old_branch new_branch         # Rename branch locally`
 	`git push origin :old_branch                 # Delete the old branch`
 	`git push --set-upstream origin new_branch`
+	Cơ chế của 2 thằng này khác nhau mặc dù làm cùng 1 công việc:
+Với Merged: không quan tâm tới thời gian 
+nó se gộp code với commit mới nhất của nhánh mà em đang muốn rebase. 
+
+Anh lấy ví dụ anh có 2 branch A và B:
+A có các commit là 4, 3, 2, 1
+B có các commit là 5, 2, 1
+
+Bây giờ khi anh thực hiện lệnh B git merged A thì nó sẽ compare code giữa 5 vs 4 để gộp comit lại. 
+
+Trong trường hợp rebase: quan tâm tới thời gian
+cụ thể là nó sẽ compare với từng commit khác nhau của 2 branch. 
+
+Với ví dụ như trên nó sẽ thực hiện như sau: 
+
+B: git rebase A
+Do 2 thằng này có commit 1, 2 giống nhau nên nó bỏ qua. 
+Có 2 commit 3, 4 khác so với branch B như vậy nó sẽ làm như sau:
+Bước 1: compare giữa commit 5 và commit 3 tạo ra một commit 5.1 (Đây là một ví dụ dễ hình dùng thôi, cái này chỉ tạo tạm thời)
+Bước 2: compare giữa commit 5.1 và commit 4 tạo ra một commit 5.2 (Như trên)
+Bược 3: có thể hiểu đơn giản là thay thế 5 = 5.2 
+
+Đây là cơ chế hoạt động của rebase vs merged nên sau khi làm thì merged sẽ không làm thay đổi lịch sử 
+còn rebase có thể làm thay đổi lịch sự. Anh có test thì không phải lúc nào cũng làm thay đổi lịch sử của commit. 
+Nếu có thay dổi cũng k phải là thay đổi 100%. mà nó chỉ xóa đi commit mà thực hiển GIt MERGED khi thực hiện trên trình duyệt merged pull request mà thôi. Còn các commit mà chúng ta commit đẩy lên không bị xóa đi
