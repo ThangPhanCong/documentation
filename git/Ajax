@@ -23,3 +23,7 @@
 
   });
   });
+
+
+
+render json: {status: :error, messages: @user.errors.full_messages}
