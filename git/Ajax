@@ -1,0 +1,25 @@
+ $("#new_user").submit(function(event) {
+    event.preventDefault();
+    var params = $(this).serialize();
+     $.ajax({
+    url: '/signup',
+    type: 'post',
+    dataType: 'json',
+    data: params,
+  })
+  .done(function(response) {
+    if(response.status == "success"){
+
+    }else {
+      $.each(response.messages, function(key,value){
+        console.log(key+value);
+      });
+    }
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+
+  });
+  });
