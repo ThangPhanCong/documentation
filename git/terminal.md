@@ -287,3 +287,5 @@ Nếu có thay dổi cũng k phải là thay đổi 100%. mà nó chỉ xóa đi
 
 
 https://docs.google.com/document/d/14pucvbgXTPdvRvoLszFqXKraOzUVWRGobpA8iHj7aeE/edit
+
+phải git add. rồi mới di chuyển code sang nhánh khác được
